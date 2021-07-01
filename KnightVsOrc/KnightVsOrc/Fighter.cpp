@@ -99,3 +99,8 @@ void Fighter::EraseStatusIfFinished(int iId)
         _Status.erase(_Status.begin() + iId);
     }
 }
+
+void Fighter::UseSkill()
+{
+    _Skill.SkillUsed();
+}

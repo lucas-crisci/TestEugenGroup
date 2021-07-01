@@ -40,11 +40,9 @@ void Game::Start()
 
         std::cout << "Start attack target selection !" << std::endl;
         PressEnter();
-        //SelectAttackTarget
 
-
-
-        EndGame = true;
+        TourCounter++;
+        //EndGame = true;
     }
 }
 
@@ -52,9 +50,11 @@ void Game::SelectSkill()
 {
     for (int idFighter = 0; idFighter < (int)_FightersList.size(); idFighter++)
     {
+        DisplayFightersDatas();
         std::string Stun = SKILLSTUNNAME;
         std::string Charge = SKILLCHARGENAME;
         int IsStun = _FightersList[idFighter].IsAffected(Stun);
+
         if (IsStun >= 0)
         {
             std::cout << "Fighter " << idFighter + 1 << " : " << _FightersList[idFighter].GetName() << " ! You are stunned ! " << std::endl << std::endl;
@@ -64,7 +64,6 @@ void Game::SelectSkill()
         }
         else if (_FightersList[idFighter].GetSkill().GetActualCooldown() == 0)
         {
-            DisplayFightersDatas();
             std::cout << "Fighter " << idFighter + 1 << " : " << _FightersList[idFighter].GetName() << " ! Do you want to launch your skill \"" << _FightersList[idFighter].GetSkill().GetName() << "\" ?" << std::endl;
             bool Choice = YesNoChoice();
             if (Choice)
@@ -212,7 +211,8 @@ void Game::LaunchStun(int iIdFighter)
     }
     else // Launch Skill
     {
-        _FightersList[iIdFighter].GetSkill().SkillUsed();
+        // Add Cooldown on skill
+        _FightersList[iIdFighter].UseSkill();
 
         std::string Stun = SKILLSTUNNAME;
         int IsStun = _FightersList[TargetId].IsAffected(Stun);
@@ -231,7 +231,8 @@ void Game::LaunchStun(int iIdFighter)
 
 void Game::LaunchCharge(int iIdFighter)
 {
-    _FightersList[iIdFighter].GetSkill().SkillUsed();
+    // Add Cooldown on skill
+    _FightersList[iIdFighter].UseSkill();
 
     std::string Charge = SKILLCHARGENAME;
     int IsCharged = _FightersList[iIdFighter].IsAffected(Charge);
@@ -241,7 +242,7 @@ void Game::LaunchCharge(int iIdFighter)
         // Increment Status Duration
         _FightersList[iIdFighter].IncrementStatusById(IsCharged, _FightersList[iIdFighter].GetSkillEffect().GetDuration());
     }
-    else
+    else// Add Status
     {
         _FightersList[iIdFighter].AddNewStatus(_FightersList[iIdFighter].GetSkillEffect());
         std::cout << "Fighter " << iIdFighter+1 << " : " << _FightersList[iIdFighter].GetName() << " is affected for " << _FightersList[iIdFighter].GetSkillEffect().GetDuration() << " turn(s) by " << Charge << " !" << std::endl;

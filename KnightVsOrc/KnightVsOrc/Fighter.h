@@ -26,6 +26,7 @@ public:
     void DecrementStatusById(int iId, int iDecrementValue = 1);
     void IncrementStatusById(int iId, int iIncrementValue = 1);
     void EraseStatusIfFinished(int iId);
+    void UseSkill();
 
 private:
     std::string _Name;
