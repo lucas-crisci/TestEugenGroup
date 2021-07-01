@@ -33,6 +33,8 @@ private:
     int ChooseTarget(int iActualFighterId);
     bool YesNoChoice();
     void PressEnter();
+    void LaunchStun(int iIdFighter);
+    void LaunchCharge(int iIdFighter);
 };
 
 #endif // GAME_H

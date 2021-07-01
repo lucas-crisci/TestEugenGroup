@@ -25,7 +25,12 @@ int Status::GetDuration()
     return _Duration;
 }
 
-void Status::DecrementDuration()
+void Status::DecrementDuration(int iDecrementValue)
 {
-    _Duration--;
+    _Duration -= iDecrementValue;
+}
+
+void Status::IncrementDuration(int iIncrementValue)
+{
+    _Duration += iIncrementValue;
 }

@@ -20,8 +20,11 @@ public:
     Weapon GetWeapon();
     Skill GetSkill();
     std::vector<Status> GetAllStatus();
+    Status GetSkillEffect();
     int IsAffected(std::string StatusName);
-    void DecrementStatusById(int iId);
+    void AddNewStatus(Status);
+    void DecrementStatusById(int iId, int iDecrementValue = 1);
+    void IncrementStatusById(int iId, int iIncrementValue = 1);
     void EraseStatusIfFinished(int iId);
 
 private:

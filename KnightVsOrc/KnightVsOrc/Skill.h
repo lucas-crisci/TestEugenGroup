@@ -17,6 +17,7 @@ public:
     int GetRate();
     Status GetEffect();
     void DecrementActualCooldown();
+    void SkillUsed();
 
 private:
     std::string _Name;

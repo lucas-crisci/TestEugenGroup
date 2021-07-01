@@ -53,6 +53,7 @@ void Game::SelectSkill()
     for (int idFighter = 0; idFighter < (int)_FightersList.size(); idFighter++)
     {
         std::string Stun = SKILLSTUNNAME;
+        std::string Charge = SKILLCHARGENAME;
         int IsStun = _FightersList[idFighter].IsAffected(Stun);
         if (IsStun >= 0)
         {
@@ -68,19 +69,16 @@ void Game::SelectSkill()
             bool Choice = YesNoChoice();
             if (Choice)
             {
-                //TODO créer méthode pour lancer Stun et pour lancer Charge
-
-                int TargetId = -1;
-                if (_FightersList.size() > 2)
-                    TargetId = ChooseTarget(idFighter);
-                else
-                    TargetId = idFighter == 0 ? 1 : 0;
-                // TODO Launch Skill
+                std::string SkillName = _FightersList[idFighter].GetSkill().GetName();
+                //TODO créer méthode pour lancer lancer Charge
+                if(_FightersList[idFighter].GetSkill().GetName() == Stun)
+                    LaunchStun(idFighter);
+                else if (_FightersList[idFighter].GetSkill().GetName() == Charge)
+                    LaunchCharge(idFighter);
             }
             else
             {
                 std::cout << "You don't launch your skill." << std::endl << std::endl;
-                Sleep(1000);
             }
         }
         else
@@ -198,4 +196,54 @@ void Game::PressEnter()
     }
 
     system("CLS");
+}
+
+void Game::LaunchStun(int iIdFighter)
+{
+    int TargetId = -1;
+    if (_FightersList.size() > 2)
+        TargetId = ChooseTarget(iIdFighter);
+    else
+        TargetId = iIdFighter == 0 ? 1 : 0;
+
+    if (TargetId < 0)
+    {
+        std::cout << "Skill cancelled !" << std::endl;
+    }
+    else // Launch Skill
+    {
+        _FightersList[iIdFighter].GetSkill().SkillUsed();
+
+        std::string Stun = SKILLSTUNNAME;
+        int IsStun = _FightersList[TargetId].IsAffected(Stun);
+        if (IsStun >= 0)
+        {
+            std::cout << "Fighter " << TargetId+1 << " : " << _FightersList[TargetId].GetName() << " is affected for " << _FightersList[iIdFighter].GetSkillEffect().GetDuration() << " more turn(s) by " << Stun << " !" << std::endl;
+            _FightersList[iIdFighter].IncrementStatusById(IsStun, _FightersList[iIdFighter].GetSkillEffect().GetDuration());
+        }
+        else
+        {
+            _FightersList[TargetId].AddNewStatus(_FightersList[iIdFighter].GetSkillEffect());
+            std::cout << "Fighter " << TargetId+1 << " : " << _FightersList[TargetId].GetName() << " is affected for " << _FightersList[iIdFighter].GetSkillEffect().GetDuration() << " turn(s) by " << Stun << " !" << std::endl;
+        }
+    }
+}
+
+void Game::LaunchCharge(int iIdFighter)
+{
+    _FightersList[iIdFighter].GetSkill().SkillUsed();
+
+    std::string Charge = SKILLCHARGENAME;
+    int IsCharged = _FightersList[iIdFighter].IsAffected(Charge);
+    if (IsCharged >= 0)
+    {
+        std::cout << "Fighter " << iIdFighter+1 << " : " << _FightersList[iIdFighter].GetName() << " is affected for " << _FightersList[iIdFighter].GetSkillEffect().GetDuration() << " more turn(s) by " << Charge << " !" << std::endl;
+        // Increment Status Duration
+        _FightersList[iIdFighter].IncrementStatusById(IsCharged, _FightersList[iIdFighter].GetSkillEffect().GetDuration());
+    }
+    else
+    {
+        _FightersList[iIdFighter].AddNewStatus(_FightersList[iIdFighter].GetSkillEffect());
+        std::cout << "Fighter " << iIdFighter+1 << " : " << _FightersList[iIdFighter].GetName() << " is affected for " << _FightersList[iIdFighter].GetSkillEffect().GetDuration() << " turn(s) by " << Charge << " !" << std::endl;
+    }
 }

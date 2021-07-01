@@ -55,9 +55,14 @@ std::vector<Status> Fighter::GetAllStatus()
     return _Status;
 }
 
+Status Fighter::GetSkillEffect()
+{
+    return _Skill.GetEffect();
+}
+
 int Fighter::IsAffected(std::string StatusName)
 {
-    for (int idStatus = 0; idStatus < _Status.size(); idStatus++)
+    for (int idStatus = 0; idStatus < (int)_Status.size(); idStatus++)
     {
         if (_Status[idStatus].GetName() == StatusName)
             return idStatus;
@@ -66,11 +71,24 @@ int Fighter::IsAffected(std::string StatusName)
     return -1;
 }
 
-void Fighter::DecrementStatusById(int iId)
+void Fighter::AddNewStatus(Status iNewStatus)
 {
-    if (iId < _Status.size())
+    _Status.push_back(iNewStatus);
+}
+
+void Fighter::DecrementStatusById(int iId, int iDecrementValue)
+{
+    if (iId < (int)_Status.size())
     {
-        _Status[iId].DecrementDuration();
+        _Status[iId].DecrementDuration(iDecrementValue);
+    }
+}
+
+void Fighter::IncrementStatusById(int iId, int iIncrementValue)
+{
+    if (iId < (int)_Status.size())
+    {
+        _Status[iId].IncrementDuration(iIncrementValue);
     }
 }
 

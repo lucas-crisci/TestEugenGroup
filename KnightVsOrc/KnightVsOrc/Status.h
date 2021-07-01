@@ -11,7 +11,8 @@ public:
 
     std::string GetName();
     int GetDuration();
-    void DecrementDuration();
+    void DecrementDuration(int iDecrementValue = 1);
+    void IncrementDuration(int iIncrementValue = 1);
 
 private:
     std::string _Name;

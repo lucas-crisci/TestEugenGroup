@@ -49,3 +49,8 @@ void Skill::DecrementActualCooldown()
 {
     _ActualCooldown--;
 }
+
+void Skill::SkillUsed()
+{
+    _ActualCooldown = _Cooldown;
+}
