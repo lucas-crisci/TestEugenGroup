@@ -40,17 +40,24 @@ void Game::Start()
         PressEnter();
         SelectSkill();
 
+        std::cout << "--------------------------------------------------" << std::endl;
+        std::cout << "Tour " << TourCounter << std::endl;
+        std::cout << "--------------------------------------------------" << std::endl;
+
         std::cout << "Start attack target selection !" << std::endl;
-        SelectAttackTarget();
         PressEnter();
+        SelectAttackTarget();
 
         int RoundResult = CheckIfEndGame();
         if (RoundResult >= 0)
         {
             std::cout << "Fighter " << RoundResult + 1 << " : " << _FightersList[RoundResult].GetName() << " ! You are dead, GAME OVER ! " << std::endl << std::endl;
             AvailableFighters--;
-            if(AvailableFighters <= 1)
+            if (AvailableFighters <= 1)
+            {
                 EndGame = true;
+                PressEnter();
+            }
         }
 
         TourCounter++;
@@ -86,11 +93,12 @@ void Game::SelectSkill()
             else
             {
                 std::cout << "You don't launch your skill." << std::endl << std::endl;
+                _FightersList[idFighter].GetSkill().DecrementActualCooldown();
             }
         }
         else
         {
-            _FightersList[idFighter].GetSkill().DecrementActualCooldown();
+            _FightersList[idFighter].DecrementSkillCooldown();
             std::cout << "Player " << idFighter + 1 << " : " << _FightersList[idFighter].GetName() << " ! Your skill is not ready, it will be ready in " << _FightersList[idFighter].GetSkill().GetActualCooldown() << " rounds" << std::endl << std::endl;
         }
 
@@ -128,10 +136,15 @@ void Game::SelectAttackTarget()
             int Damages = _FightersList[idFighter].GetWeapon().GetDamages();
 
             int IsCharged = _FightersList[idFighter].IsAffected(Charge);
-            if (IsCharged > 0)
+            if (IsCharged >= 0)
+            {
                 Damages *= 2;
+                _FightersList[idFighter].DecrementStatusById(IsCharged);
+                _FightersList[idFighter].EraseStatusIfFinished(IsCharged);
+            }
 
             // Apply Damages
+            std::cout << "Fighter " << TargetId + 1 << " : " << _FightersList[TargetId].GetName() << " ! You receive " << Damages << " damages !" << std::endl << std::endl;
             _FightersList[TargetId].ReceiveDamages(Damages);
         }
 

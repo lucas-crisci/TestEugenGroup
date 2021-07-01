@@ -28,6 +28,7 @@ public:
     void EraseStatusIfFinished(int iId);
     void UseSkill();
     void ReceiveDamages(int iDamages);
+    void DecrementSkillCooldown();
 
 private:
     std::string _Name;

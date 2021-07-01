@@ -47,7 +47,8 @@ Status Skill::GetEffect()
 
 void Skill::DecrementActualCooldown()
 {
-    _ActualCooldown--;
+    if(_ActualCooldown > 0)
+        _ActualCooldown--;
 }
 
 void Skill::SkillUsed()

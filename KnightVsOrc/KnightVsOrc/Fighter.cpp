@@ -118,3 +118,8 @@ void Fighter::ReceiveDamages(int iDamages)
         _Health = iDamages >= _Health ? 0 : _Health - iDamages;
     }
 }
+
+void Fighter::DecrementSkillCooldown()
+{
+    _Skill.DecrementActualCooldown();
+}
