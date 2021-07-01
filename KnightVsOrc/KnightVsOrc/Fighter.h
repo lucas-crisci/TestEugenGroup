@@ -27,6 +27,7 @@ public:
     void IncrementStatusById(int iId, int iIncrementValue = 1);
     void EraseStatusIfFinished(int iId);
     void UseSkill();
+    void ReceiveDamages(int iDamages);
 
 private:
     std::string _Name;

@@ -29,12 +29,14 @@ private:
     int _NbRounds;
 
     void SelectSkill();
+    void SelectAttackTarget();
     void DisplayFightersDatas();
-    int ChooseTarget(int iActualFighterId);
+    int ChooseTarget(int iActualFighterId, bool iCancelChoice = true);
     bool YesNoChoice();
     void PressEnter();
     void LaunchStun(int iIdFighter);
     void LaunchCharge(int iIdFighter);
+    int CheckIfEndGame();
 };
 
 #endif // GAME_H

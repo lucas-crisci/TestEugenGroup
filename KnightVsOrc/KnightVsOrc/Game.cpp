@@ -3,6 +3,7 @@
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
+#include <cstdlib>
 
 // If you change in this class change it also in KnightVsOrc.cpp
 #define SKILLSTUNNAME "Stun";
@@ -25,12 +26,13 @@ void Game::Start()
 {
     bool EndGame = false;
     int TourCounter = 1;
+    int AvailableFighters = _FightersList.size();
 
     DisplayFightersDatas();
 
     while (!EndGame || (TourCounter < _NbRounds && _LimitRounds))
     {
-        std::cout << std::endl << "--------------------------------------------------" << std::endl;
+        std::cout << "--------------------------------------------------" << std::endl;
         std::cout << "Tour " << TourCounter << std::endl;
         std::cout << "--------------------------------------------------" << std::endl;
         
@@ -39,10 +41,19 @@ void Game::Start()
         SelectSkill();
 
         std::cout << "Start attack target selection !" << std::endl;
+        SelectAttackTarget();
         PressEnter();
 
+        int RoundResult = CheckIfEndGame();
+        if (RoundResult >= 0)
+        {
+            std::cout << "Fighter " << RoundResult + 1 << " : " << _FightersList[RoundResult].GetName() << " ! You are dead, GAME OVER ! " << std::endl << std::endl;
+            AvailableFighters--;
+            if(AvailableFighters <= 1)
+                EndGame = true;
+        }
+
         TourCounter++;
-        //EndGame = true;
     }
 }
 
@@ -58,9 +69,6 @@ void Game::SelectSkill()
         if (IsStun >= 0)
         {
             std::cout << "Fighter " << idFighter + 1 << " : " << _FightersList[idFighter].GetName() << " ! You are stunned ! " << std::endl << std::endl;
-            // Decrement status duration and Erase if finished
-            _FightersList[idFighter].DecrementStatusById(IsStun);
-            _FightersList[idFighter].EraseStatusIfFinished(IsStun);
         }
         else if (_FightersList[idFighter].GetSkill().GetActualCooldown() == 0)
         {
@@ -69,7 +77,7 @@ void Game::SelectSkill()
             if (Choice)
             {
                 std::string SkillName = _FightersList[idFighter].GetSkill().GetName();
-                //TODO créer méthode pour lancer lancer Charge
+                
                 if(_FightersList[idFighter].GetSkill().GetName() == Stun)
                     LaunchStun(idFighter);
                 else if (_FightersList[idFighter].GetSkill().GetName() == Charge)
@@ -84,7 +92,47 @@ void Game::SelectSkill()
         {
             _FightersList[idFighter].GetSkill().DecrementActualCooldown();
             std::cout << "Player " << idFighter + 1 << " : " << _FightersList[idFighter].GetName() << " ! Your skill is not ready, it will be ready in " << _FightersList[idFighter].GetSkill().GetActualCooldown() << " rounds" << std::endl << std::endl;
-            Sleep(1000);
+        }
+
+        PressEnter();
+    }
+}
+
+
+void Game::SelectAttackTarget()
+{
+    for (int idFighter = 0; idFighter < (int)_FightersList.size(); idFighter++)
+    {
+        DisplayFightersDatas();
+        std::string Stun = SKILLSTUNNAME;
+        std::string Charge = SKILLCHARGENAME;
+        int IsStun = _FightersList[idFighter].IsAffected(Stun);
+
+        if (IsStun >= 0)
+        {
+            std::cout << "Fighter " << idFighter + 1 << " : " << _FightersList[idFighter].GetName() << " ! You are stunned ! " << std::endl << std::endl;
+            // Decrement status duration and Erase if finished
+            _FightersList[idFighter].DecrementStatusById(IsStun);
+            _FightersList[idFighter].EraseStatusIfFinished(IsStun);
+        }
+        else
+        {
+            // Select Target
+            int TargetId = -1;
+            if (_FightersList.size() > 2)
+                TargetId = ChooseTarget(idFighter, false);
+            else
+                TargetId = idFighter == 0 ? 1 : 0;
+
+            // Calcul damages
+            int Damages = _FightersList[idFighter].GetWeapon().GetDamages();
+
+            int IsCharged = _FightersList[idFighter].IsAffected(Charge);
+            if (IsCharged > 0)
+                Damages *= 2;
+
+            // Apply Damages
+            _FightersList[TargetId].ReceiveDamages(Damages);
         }
 
         PressEnter();
@@ -96,9 +144,9 @@ void Game::DisplayFightersDatas()
     for (int idFighter = 0; idFighter < (int)_FightersList.size(); idFighter++)
     {
         std::cout << "Fighter " << idFighter + 1 << " : " << _FightersList[idFighter].GetName() << std::endl;
-        std::cout << "HP : " << _FightersList[idFighter].GetHealth() << "\tShield : " << _FightersList[idFighter].GetShield() << std::endl;
-        std::cout << "Weapon : " << _FightersList[idFighter].GetWeapon().GetName() << "\tDamages : " << _FightersList[idFighter].GetWeapon().GetDamages() << std::endl;
-        std::cout << "Skill : " << _FightersList[idFighter].GetSkill().GetName() << "\tCoolDown : " << _FightersList[idFighter].GetSkill().GetActualCooldown() << " / " << _FightersList[idFighter].GetSkill().GetCooldown() << std::endl;
+        std::cout << "HP : " << _FightersList[idFighter].GetHealth() << "\t\tShield : " << _FightersList[idFighter].GetShield() << std::endl;
+        std::cout << "Weapon : " << _FightersList[idFighter].GetWeapon().GetName() << "\t\tDamages : " << _FightersList[idFighter].GetWeapon().GetDamages() << std::endl;
+        std::cout << "Skill : " << _FightersList[idFighter].GetSkill().GetName() << "\t\tCoolDown : " << _FightersList[idFighter].GetSkill().GetActualCooldown() << " / " << _FightersList[idFighter].GetSkill().GetCooldown() << std::endl;
 
         if (0 < _FightersList[idFighter].GetAllStatus().size())
         {
@@ -144,7 +192,7 @@ void Game::SetAllFighters(std::vector<Fighter> iNewFighterList)
     _FightersList = iNewFighterList;
 }
 
-int Game::ChooseTarget(int iActualFighterId)
+int Game::ChooseTarget(int iActualFighterId, bool iCancelChoice)
 {
     std::cout << "Choose your Target\n";
 
@@ -154,7 +202,8 @@ int Game::ChooseTarget(int iActualFighterId)
         std::cout << idOtherFighters + 1 << " : " << _FightersList[FighterId].GetName() << "\t\t";
     }
 
-    std::cout << "C : Cancel\n";
+    if(iCancelChoice)
+        std::cout << "C : Cancel\n";
 
     while (true)
     {
@@ -162,7 +211,7 @@ int Game::ChooseTarget(int iActualFighterId)
             return 0 >= iActualFighterId ? 1 : 0;
         else if ((GetAsyncKeyState(0x32) || GetAsyncKeyState(VK_NUMPAD2)) && _FightersList.size() > 2) // Choice 2
             return 1 >= iActualFighterId ? 2 : 1;
-        else if ((GetAsyncKeyState(0x33) || GetAsyncKeyState(VK_NUMPAD3)) && _FightersList.size() > 3) // Choice 3
+        else if ((GetAsyncKeyState(0x33) || GetAsyncKeyState(VK_NUMPAD3)) && _FightersList.size() > 3 && iCancelChoice) // Choice 3
             return 2 >= iActualFighterId ? 3 : 2;
         else if (GetAsyncKeyState(0x43)) // Cancel
             return -1;
@@ -185,7 +234,7 @@ bool Game::YesNoChoice()
 
 void Game::PressEnter()
 {
-    std::cout << "\nPress Enter to continue" << std::endl;
+    std::cout << std::endl << "\nPress Enter to continue or Q to quit the game" << std::endl;
     
     bool EnterPressed = false;
     bool EnterReleased = false;
@@ -198,6 +247,20 @@ void Game::PressEnter()
             {
                 if (!GetAsyncKeyState(VK_RETURN))
                     EnterReleased = true;
+            }
+        }
+        if (GetAsyncKeyState(0x51)) // Q Key
+        {
+            bool Choice = YesNoChoice();
+            if (Choice)
+            {
+                std::cout << "Good bie Players !";
+                std::terminate();
+            }
+            else
+            {
+                EnterPressed = true;
+                PressEnter();
             }
         }
     }
@@ -255,4 +318,14 @@ void Game::LaunchCharge(int iIdFighter)
         _FightersList[iIdFighter].AddNewStatus(_FightersList[iIdFighter].GetSkillEffect());
         std::cout << "Fighter " << iIdFighter+1 << " : " << _FightersList[iIdFighter].GetName() << " is affected for " << _FightersList[iIdFighter].GetSkillEffect().GetDuration() << " turn(s) by " << Charge << " !" << std::endl;
     }
+}
+
+int Game::CheckIfEndGame()
+{
+    for (int idFighters = 0; idFighters < (int)_FightersList.size(); idFighters++)
+    {
+        if (_FightersList[idFighters].GetHealth() <= 0)
+            return idFighters;
+    }
+    return -1;
 }

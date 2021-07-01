@@ -104,3 +104,17 @@ void Fighter::UseSkill()
 {
     _Skill.SkillUsed();
 }
+
+void Fighter::ReceiveDamages(int iDamages)
+{
+    if (_Shield > 0)
+    {
+        int RemainingDamage = iDamages >= _Shield ? (iDamages - _Shield) : 0;
+        _Shield = iDamages >= _Shield ? 0 : _Shield - iDamages;
+        _Health -= RemainingDamage;
+    }
+    else
+    {
+        _Health = iDamages >= _Health ? 0 : _Health - iDamages;
+    }
+}
