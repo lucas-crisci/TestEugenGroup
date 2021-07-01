@@ -188,10 +188,18 @@ void Game::PressEnter()
     std::cout << "\nPress Enter to continue" << std::endl;
     
     bool EnterPressed = false;
+    bool EnterReleased = false;
     while (!EnterPressed)
     {
         if (GetAsyncKeyState(VK_RETURN))
+        {
             EnterPressed = true;
+            while (!EnterReleased)
+            {
+                if (!GetAsyncKeyState(VK_RETURN))
+                    EnterReleased = true;
+            }
+        }
     }
 
     system("CLS");
