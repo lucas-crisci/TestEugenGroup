@@ -1,8 +1,8 @@
 #include "Game.h"
+#include "InputOutput.h"
 
 #include <iostream>
 #include <windows.h>
-#include <conio.h>
 #include <cstdlib>
 
 // If you change in this class change it also in KnightVsOrc.cpp
@@ -37,7 +37,7 @@ void Game::Start()
         std::cout << "--------------------------------------------------" << std::endl;
         
         std::cout << "Start skill selection !" << std::endl;
-        PressEnter();
+        _IO.PressEnter();
         SelectSkill();
 
         std::cout << "--------------------------------------------------" << std::endl;
@@ -45,7 +45,7 @@ void Game::Start()
         std::cout << "--------------------------------------------------" << std::endl;
 
         std::cout << "Start attack target selection !" << std::endl;
-        PressEnter();
+        _IO.PressEnter();
         SelectAttackTarget();
 
         int RoundResult = CheckIfEndGame();
@@ -56,7 +56,7 @@ void Game::Start()
             if (AvailableFighters <= 1)
             {
                 EndGame = true;
-                PressEnter();
+                _IO.PressEnter();
             }
         }
 
@@ -80,7 +80,7 @@ void Game::SelectSkill()
         else if (_FightersList[idFighter].GetSkill().GetActualCooldown() == 0)
         {
             std::cout << "Fighter " << idFighter + 1 << " : " << _FightersList[idFighter].GetName() << " ! Do you want to launch your skill \"" << _FightersList[idFighter].GetSkill().GetName() << "\" ?" << std::endl;
-            bool Choice = YesNoChoice();
+            bool Choice = _IO.YesNoChoice();
             if (Choice)
             {
                 int RandomNb = rand() % 100 + 1;
@@ -111,10 +111,9 @@ void Game::SelectSkill()
             std::cout << "Player " << idFighter + 1 << " : " << _FightersList[idFighter].GetName() << " ! Your skill is not ready, it will be ready in " << _FightersList[idFighter].GetSkill().GetActualCooldown() << " rounds" << std::endl << std::endl;
         }
 
-        PressEnter();
+        _IO.PressEnter();
     }
 }
-
 
 void Game::SelectAttackTarget()
 {
@@ -157,7 +156,7 @@ void Game::SelectAttackTarget()
             _FightersList[TargetId].ReceiveDamages(Damages);
         }
 
-        PressEnter();
+        _IO.PressEnter();
     }
 }
 
@@ -240,54 +239,6 @@ int Game::ChooseTarget(int iActualFighterId, bool iCancelChoice)
     }
 
     return 0;
-}
-
-bool Game::YesNoChoice()
-{
-    std::cout << "y = yes / n = no" << std::endl;
-    while (true)
-    {
-        if (GetAsyncKeyState(0x59)) // Y Choice
-            return true;
-        else if (GetAsyncKeyState(0x4E)) // N Choice
-            return false;
-    }
-}
-
-void Game::PressEnter()
-{
-    std::cout << std::endl << "\nPress Enter to continue or Q to quit the game" << std::endl;
-    
-    bool EnterPressed = false;
-    bool EnterReleased = false;
-    while (!EnterPressed)
-    {
-        if (GetAsyncKeyState(VK_RETURN))
-        {
-            EnterPressed = true;
-            while (!EnterReleased)
-            {
-                if (!GetAsyncKeyState(VK_RETURN))
-                    EnterReleased = true;
-            }
-        }
-        if (GetAsyncKeyState(0x51)) // Q Key
-        {
-            bool Choice = YesNoChoice();
-            if (Choice)
-            {
-                std::cout << "Good bie Players !";
-                std::terminate();
-            }
-            else
-            {
-                EnterPressed = true;
-                PressEnter();
-            }
-        }
-    }
-
-    system("CLS");
 }
 
 void Game::LaunchStun(int iIdFighter)

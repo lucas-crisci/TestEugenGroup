@@ -5,6 +5,7 @@
 #include "Weapon.h"
 #include "Skill.h"
 #include "Status.h"
+#include "InputOutput.h"
 
 #include <vector>
 
@@ -27,13 +28,12 @@ private:
     std::vector<Fighter> _FightersList;
     bool _LimitRounds;
     int _NbRounds;
+    InputOutput _IO;
 
     void SelectSkill();
     void SelectAttackTarget();
     void DisplayFightersDatas();
     int ChooseTarget(int iActualFighterId, bool iCancelChoice = true);
-    bool YesNoChoice();
-    void PressEnter();
     void LaunchStun(int iIdFighter);
     void LaunchCharge(int iIdFighter);
     int CheckIfEndGame();

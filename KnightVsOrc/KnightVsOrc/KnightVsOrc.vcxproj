@@ -147,7 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Attack.cpp" />
+    <ClCompile Include="InputOutput.cpp" />
     <ClCompile Include="Fighter.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="KnightVsOrc.cpp" />
@@ -156,7 +156,7 @@
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Attack.h" />
+    <ClInclude Include="InputOutput.h" />
     <ClInclude Include="Fighter.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="KnightVsOrc.h" />
