@@ -83,12 +83,21 @@ void Game::SelectSkill()
             bool Choice = YesNoChoice();
             if (Choice)
             {
-                std::string SkillName = _FightersList[idFighter].GetSkill().GetName();
+                int RandomNb = rand() % 100 + 1;
+                if (RandomNb <= _FightersList[idFighter].GetSkill().GetRate())
+                {
+                    std::string SkillName = _FightersList[idFighter].GetSkill().GetName();
                 
-                if(_FightersList[idFighter].GetSkill().GetName() == Stun)
-                    LaunchStun(idFighter);
-                else if (_FightersList[idFighter].GetSkill().GetName() == Charge)
-                    LaunchCharge(idFighter);
+                    if(_FightersList[idFighter].GetSkill().GetName() == Stun)
+                        LaunchStun(idFighter);
+                    else if (_FightersList[idFighter].GetSkill().GetName() == Charge)
+                        LaunchCharge(idFighter);
+                }
+                else
+                {
+                    std::cout << "Failed dice roll !\n";
+                    _FightersList[idFighter].UseSkill();
+                }
             }
             else
             {
