@@ -1,5 +1,4 @@
 #include "Skill.h"
-#include "Status.h"
 
 #include <iostream>
 #include <string>

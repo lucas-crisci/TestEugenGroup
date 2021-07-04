@@ -8,6 +8,7 @@
 #include "Status.h"
 #include "Game.h"
 
+#include <Windows.h>
 #include <iostream>
 #include<stdio.h>
 
@@ -67,49 +68,9 @@ Game CreateDefaultGame()
     return Game(FightersList);
 }
 
-Status CreateCustomStatus()
-{
-    std::string Name;
-    int Duration = -1;
-    std::cout << std::endl << "Choose status name : ";
-    scanf_s("%s", Name);
-    //std::cin >> Name;
-    std::cout << std::endl << "Choose status duration : ";
-    scanf_s("%i", Duration);
-    //std::cin >> Duration;
-
-    return Status(Name, Duration);
-}
-
-Weapon CreateCustomWeapon()
-{
-    std::string Name;
-    int Damages;
-    std::cout << std::endl << "Choose status name : ";
-    std::cin >> Name;
-    std::cout << std::endl << "Choose damages of weapons : ";
-    std::cin >> Damages;
-
-    return Weapon(Name, Damages);
-}
-
-Game CreateCustomGame()
-{
-    Status NewStatus = CreateCustomStatus();
-    return Game();
-}
-
 int main()
 {
-    std::cout << "Hello players! Do you prefer to play a default or custom game?" << std::endl;
-    bool GameChoice = _IO.ABChoices("Default", "Custom");
+    Game NewGame = CreateDefaultGame();
 
-    Game NewGame;
-    if (GameChoice)
-        NewGame = CreateDefaultGame();
-    else
-        NewGame = CreateCustomGame();
-
-    _IO.Refresh();
     NewGame.Start();
 }

@@ -1,9 +1,7 @@
-﻿  KnightVsOrc.cpp
-C:\Users\Lucas\Documents\TestEugenGroup\KnightVsOrc\KnightVsOrc\KnightVsOrc.cpp(75,13): warning C4477: 'scanf_s' : la chaîne de format '%s' nécessite un argument de type 'char *', mais l'argument variadique 1 est de type 'std::string'
-C:\Users\Lucas\Documents\TestEugenGroup\KnightVsOrc\KnightVsOrc\KnightVsOrc.cpp(75,13): message : cet argument est utilisé par un spécificateur de conversion
-C:\Users\Lucas\Documents\TestEugenGroup\KnightVsOrc\KnightVsOrc\KnightVsOrc.cpp(75,13): warning C4473: 'scanf_s' : nombre insuffisant d'arguments passés pour la chaîne de format
-C:\Users\Lucas\Documents\TestEugenGroup\KnightVsOrc\KnightVsOrc\KnightVsOrc.cpp(75,13): message : les espaces réservés et leurs paramètres attendent des arguments 2 variadiques, mais des arguments 1 ont été fournis
-C:\Users\Lucas\Documents\TestEugenGroup\KnightVsOrc\KnightVsOrc\KnightVsOrc.cpp(75,13): message : l'argument variadique manquant 2 est demandé par la chaîne de format '%s'
-C:\Users\Lucas\Documents\TestEugenGroup\KnightVsOrc\KnightVsOrc\KnightVsOrc.cpp(75,13): message : cet argument est utilisé comme taille de mémoire tampon
-C:\Users\Lucas\Documents\TestEugenGroup\KnightVsOrc\KnightVsOrc\KnightVsOrc.cpp(78,13): warning C4477: 'scanf_s' : la chaîne de format '%i' nécessite un argument de type 'int *', mais l'argument variadique 1 est de type 'int'
+﻿  Fighter.cpp
+  Game.cpp
+  InputOutput.cpp
+  KnightVsOrc.cpp
+  Skill.cpp
+  Génération de code en cours...
   KnightVsOrc.vcxproj -> C:\Users\Lucas\Documents\TestEugenGroup\KnightVsOrc\Debug\KnightVsOrc.exe

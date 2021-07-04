@@ -1,7 +1,4 @@
 #include "Fighter.h"
-#include "Weapon.h"
-#include "Skill.h"
-#include "Status.h"
 
 #include <iostream>
 #include <string>
