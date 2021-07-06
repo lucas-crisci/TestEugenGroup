@@ -1,11 +1,5 @@
 #include "Game.h"
 
-
-
-// If you change in this class change it also in KnightVsOrc.cpp
-#define SKILLSTUNNAME "Stun";
-#define SKILLCHARGENAME "Charge";
-
 Game::Game(std::vector<Fighter*> iFightersList, int iNbRounds)
 {
     _FightersList = iFightersList;
@@ -209,58 +203,6 @@ int Game::ChooseTarget(int iActualFighterId, bool iCancelChoice)
 
     return 0;
 }
-
-//void Game::LaunchStun(int iIdFighter)
-//{
-//    int TargetId = -1;
-//    if (_FightersList.size() > 2)
-//        TargetId = ChooseTarget(iIdFighter);
-//    else
-//        TargetId = iIdFighter == 0 ? 1 : 0;
-//
-//    if (TargetId < 0)
-//    {
-//        std::cout << "Skill cancelled !" << std::endl;
-//    }
-//    else // Launch Skill
-//    {
-//        // Add Cooldown on skill
-//        _FightersList[iIdFighter]->UseSkill();
-//
-//        std::string Stun = SKILLSTUNNAME;
-//        int IsStun = _FightersList[TargetId]->IsAffected(Stun);
-//        if (IsStun >= 0)
-//        {
-//            std::cout << "Fighter " << TargetId+1 << " : " << _FightersList[TargetId]->GetName() << " is affected for " << _FightersList[iIdFighter]->GetSkillEffect().GetDuration() << " more turn(s) by " << Stun << " !" << std::endl;
-//            _FightersList[iIdFighter]->IncrementStatusById(IsStun, _FightersList[iIdFighter]->GetSkillEffect().GetDuration());
-//        }
-//        else
-//        {
-//            _FightersList[TargetId]->AddNewStatus(_FightersList[iIdFighter]->GetSkillEffect());
-//            std::cout << "Fighter " << TargetId+1 << " : " << _FightersList[TargetId]->GetName() << " is affected for " << _FightersList[iIdFighter]->GetSkillEffect().GetDuration() << " turn(s) by " << Stun << " !" << std::endl;
-//        }
-//    }
-//}
-//
-//void Game::LaunchCharge(int iIdFighter)
-//{
-//    // Add Cooldown on skill
-//    _FightersList[iIdFighter]->UseSkill();
-//
-//    std::string Charge = SKILLCHARGENAME;
-//    int IsCharged = _FightersList[iIdFighter]->IsAffected(Charge);
-//    if (IsCharged >= 0)
-//    {
-//        std::cout << "Fighter " << iIdFighter+1 << " : " << _FightersList[iIdFighter]->GetName() << " is affected for " << _FightersList[iIdFighter]->GetSkillEffect().GetDuration() << " more turn(s) by " << Charge << " !" << std::endl;
-//        // Increment Status Duration
-//        _FightersList[iIdFighter]->IncrementStatusById(IsCharged, _FightersList[iIdFighter]->GetSkillEffect().GetDuration());
-//    }
-//    else// Add Status
-//    {
-//        _FightersList[iIdFighter]->AddNewStatus(_FightersList[iIdFighter]->GetSkillEffect());
-//        std::cout << "Fighter " << iIdFighter+1 << " : " << _FightersList[iIdFighter]->GetName() << " is affected for " << _FightersList[iIdFighter]->GetSkillEffect().GetDuration() << " turn(s) by " << Charge << " !" << std::endl;
-//    }
-//}
 
 int Game::CheckIfEndGame()
 {

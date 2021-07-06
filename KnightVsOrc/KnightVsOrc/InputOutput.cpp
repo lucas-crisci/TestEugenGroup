@@ -63,8 +63,9 @@ void InputOutput::PressEnter()
             bool Choice = YesNoChoice();
             if (Choice)
             {
-                std::cout << "Good bie Players !";
-                std::terminate();
+                std::cout << "Good bie Players !" << std::endl;
+                Sleep(1000);
+                exit(0);
             }
             else
             {

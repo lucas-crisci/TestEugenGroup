@@ -4,10 +4,6 @@
 #include "Fighter.h"
 #include "InputOutput.h"
 
-#include <string>
-#include <vector>
-#include <iostream>
-
 class Orc : public Fighter
 {
 public:

@@ -38,8 +38,6 @@ private:
     void SelectAttackTarget();
     void DisplayFightersDatas();
     int ChooseTarget(int iActualFighterId, bool iCancelChoice = true);
-    //void LaunchStun(int iIdFighter);
-    //void LaunchCharge(int iIdFighter);
     int CheckIfEndGame();
 };
 

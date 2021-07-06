@@ -16,7 +16,7 @@ void Orc::LaunchSkill(std::vector<Fighter*> iFightersList)
     else
         Target = _FighterId == 0 ? iFightersList[1] : iFightersList[0];
 
-    if (Target != NULL)
+    if (Target == NULL)
     {
         std::cout << "Skill cancelled !" << std::endl;
     }

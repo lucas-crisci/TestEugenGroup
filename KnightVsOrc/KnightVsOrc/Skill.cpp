@@ -1,8 +1,5 @@
 #include "Skill.h"
 
-#include <iostream>
-#include <string>
-
 Skill::Skill(std::string iName, int iCooldown, int iRate, Status iEffect)
 {
     _Name = iName;

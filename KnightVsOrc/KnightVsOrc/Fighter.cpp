@@ -1,8 +1,5 @@
 #include "Fighter.h"
 
-#include <iostream>
-#include <string>
-
 Fighter::Fighter(int iFighterId, std::string iName, int iHealth, Weapon iWeapon, Skill iSkill, std::vector<Status> iStatus)
 {
     _FighterId = iFighterId;
