@@ -29,6 +29,11 @@ int Fighter::GetHealth()
     return _Health;
 }
 
+int Fighter::GetTotaltHealth()
+{
+    return _Health;
+}
+
 Weapon Fighter::GetWeapon()
 {
     return _Weapon;

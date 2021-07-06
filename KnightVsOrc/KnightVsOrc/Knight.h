@@ -14,6 +14,7 @@ public:
 
 	void ReceiveDamages(int iDamages);
 	int GetShield();
+	int GetTotaltHealth();
 	void DisplayFighterDatas();
 	void DealDamage(Fighter* iTarget);
 	void LaunchSkill(std::vector<Fighter*> iFightersList);

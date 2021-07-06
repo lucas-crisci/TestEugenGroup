@@ -33,6 +33,7 @@ public:
     void UseSkill();
     void DecrementSkillCooldown();
     
+    virtual int GetTotaltHealth();
     virtual void ReceiveDamages(int iDamages);
     virtual void DisplayFighterDatas();
     virtual void DealDamage(Fighter* iTarget);

@@ -19,8 +19,8 @@ void Knight::ReceiveDamages(int iDamages)
 {
     if (_Shield > 0)
     {
-        _Shield = iDamages >= _Shield ? 0 : _Shield - iDamages;
         int RemainingDamage = iDamages >= _Shield ? (iDamages - _Shield) : 0;
+        _Shield = iDamages >= _Shield ? 0 : _Shield - iDamages;
         Fighter::ReceiveDamages(RemainingDamage);
     }
     else
@@ -86,4 +86,9 @@ void Knight::LaunchSkill(std::vector<Fighter*> iFightersList)
         AddNewStatus(GetSkillEffect());
         std::cout << " turn(s) by " << Charge << " !" << std::endl;
     }
+}
+
+int Knight::GetTotaltHealth()
+{
+    return _Health + _Shield;
 }

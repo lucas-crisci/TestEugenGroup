@@ -3,7 +3,7 @@
 Game::Game(std::vector<Fighter*> iFightersList, int iNbRounds)
 {
     _FightersList = iFightersList;
-    _LimitRounds = true;
+    _LimitRounds = iNbRounds >= 0 ? true : false;
     _NbRounds = iNbRounds;
 }
 
@@ -16,15 +16,16 @@ Game::Game()
 void Game::Start()
 {
     bool EndGame = false;
-    int TourCounter = 1;
+    int TourCounter = 0;
     int AvailableFighters = _FightersList.size();
 
+    _IO.Refresh();
     DisplayFightersDatas();
 
-    while (!EndGame || (TourCounter < _NbRounds && _LimitRounds))
+    while (!EndGame && (TourCounter < _NbRounds || !_LimitRounds))
     {
         std::cout << "--------------------------------------------------" << std::endl;
-        std::cout << "Tour " << TourCounter << std::endl;
+        std::cout << "Tour " << TourCounter+1 << std::endl;
         std::cout << "--------------------------------------------------" << std::endl;
         
         std::cout << "Start skill selection !" << std::endl;
@@ -32,7 +33,7 @@ void Game::Start()
         SelectSkill();
 
         std::cout << "--------------------------------------------------" << std::endl;
-        std::cout << "Tour " << TourCounter << std::endl;
+        std::cout << "Tour " << TourCounter+1 << std::endl;
         std::cout << "--------------------------------------------------" << std::endl;
 
         std::cout << "Start attack round !" << std::endl;
@@ -53,6 +54,9 @@ void Game::Start()
 
         TourCounter++;
     }
+
+    if (!EndGame)
+        std::cout << "Game over! No winner!" << std::endl;
 }
 
 void Game::SelectSkill()
@@ -208,7 +212,7 @@ int Game::CheckIfEndGame()
 {
     for (int idFighters = 0; idFighters < (int)_FightersList.size(); idFighters++)
     {
-        if (_FightersList[idFighters]->GetHealth() <= 0)
+        if (_FightersList[idFighters]->GetTotaltHealth() <= 0)
             return idFighters;
     }
     return -1;
