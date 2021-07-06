@@ -1,22 +1,27 @@
 #ifndef FIGHTER_H
 #define FIGHTER_H
 
-#include <string>
-#include <vector>
-
 #include "Weapon.h"
 #include "Skill.h"
 #include "Status.h"
+//#include "InputOutput.h"
+
+#include <string>
+#include <vector>
+#include <iostream>
+
+#define SKILLSTUNNAME "Stun";
+#define SKILLCHARGENAME "Charge";
 
 class Fighter
 {
 public:
-    Fighter(std::string iName, int iHealth, int iShield, Weapon iWeapon, Skill iSkill, std::vector<Status> iStatus = std::vector<Status>());
+    Fighter(int iFighterId, std::string iName, int iHealths, Weapon iWeapon, Skill iSkill, std::vector<Status> iStatus = std::vector<Status>());
     Fighter();  
 
+    int GetFighterId();
     std::string GetName();
     int GetHealth();
-    int GetShield();
     Weapon GetWeapon();
     Skill GetSkill();
     std::vector<Status> GetAllStatus();
@@ -27,13 +32,17 @@ public:
     void IncrementStatusById(int iId, int iIncrementValue = 1);
     void EraseStatusIfFinished(int iId);
     void UseSkill();
-    void ReceiveDamages(int iDamages);
     void DecrementSkillCooldown();
+    
+    virtual void ReceiveDamages(int iDamages);
+    virtual void DisplayFighterDatas();
+    virtual void DealDamage(Fighter* iTarget);
+    virtual void LaunchSkill(std::vector<Fighter*> iFightersList);
 
-private:
+protected:
+    int _FighterId;
     std::string _Name;
     int _Health;
-    int _Shield;
     Weapon _Weapon;
     Skill _Skill;
     std::vector<Status> _Status;

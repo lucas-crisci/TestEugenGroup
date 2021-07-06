@@ -36,27 +36,39 @@
     <ClCompile Include="InputOutput.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Knight.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Orc.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="KnightVsOrc.h">
-      <Filter>Fichiers sources</Filter>
-    </ClInclude>
-    <ClInclude Include="Weapon.h">
-      <Filter>Fichiers sources</Filter>
-    </ClInclude>
-    <ClInclude Include="Skill.h">
-      <Filter>Fichiers sources</Filter>
-    </ClInclude>
-    <ClInclude Include="Status.h">
-      <Filter>Fichiers sources</Filter>
-    </ClInclude>
-    <ClInclude Include="Fighter.h">
-      <Filter>Fichiers sources</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="InputOutput.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Orc.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Fighter.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="KnightVsOrc.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Status.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

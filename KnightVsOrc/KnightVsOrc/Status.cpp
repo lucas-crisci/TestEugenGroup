@@ -1,8 +1,5 @@
 #include "Status.h"
 
-#include <iostream>
-#include <string>
-
 Status::Status(std::string iName, int iDuration)
 {
     _Name = iName;

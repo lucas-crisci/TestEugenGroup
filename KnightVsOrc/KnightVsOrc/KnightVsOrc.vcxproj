@@ -150,7 +150,9 @@
     <ClCompile Include="InputOutput.cpp" />
     <ClCompile Include="Fighter.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Knight.cpp" />
     <ClCompile Include="KnightVsOrc.cpp" />
+    <ClCompile Include="Orc.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="Status.cpp" />
     <ClCompile Include="Weapon.cpp" />
@@ -159,7 +161,9 @@
     <ClInclude Include="InputOutput.h" />
     <ClInclude Include="Fighter.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Knight.h" />
     <ClInclude Include="KnightVsOrc.h" />
+    <ClInclude Include="Orc.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="Status.h" />
     <ClInclude Include="Weapon.h" />

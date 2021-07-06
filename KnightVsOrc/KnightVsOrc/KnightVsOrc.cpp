@@ -3,6 +3,8 @@
 
 #include "InputOutput.h"
 #include "Fighter.h"
+#include "Knight.h"
+#include "Orc.h"
 #include "Weapon.h"
 #include "Skill.h"
 #include "Status.h"
@@ -14,7 +16,6 @@
 
 #define MAXFIGHTERS 4;
 
-// If you change in this class change it also in Game.cpp
 #define SKILLSTUNNAME "Stun";
 #define SKILLCHARGENAME "Charge";
 
@@ -23,6 +24,8 @@ using namespace std;
 
 Game CreateDefaultGame()
 {
+    int IdFighter = 0;
+
     // Create fighter 1
     std::string Fighter1Name = "Knight";
     int Fighter1Health = 20;
@@ -39,7 +42,7 @@ Game CreateDefaultGame()
     Status Fighter1SkillEffect(Fighter1SkillEffectName, 1);
     Skill Fighter1Skill(Fighter1SkillName, Fighter1SkillCooldown, Fighter1SkillRate, Fighter1SkillEffect);
 
-    Fighter Fighter1(Fighter1Name, Fighter1Health, Fighter1Shield, Fighter1Weapon, Fighter1Skill);
+    Knight* Fighter1 = new Knight(IdFighter++, Fighter1Name, Fighter1Health, Fighter1Weapon, Fighter1Shield);
 
 
     // Create fighter 2
@@ -58,10 +61,10 @@ Game CreateDefaultGame()
     Status Fighter2SkillEffect(Fighter2SkillEffectName, 1);
     Skill Fighter2Skill(Fighter2SkillName, Fighter2SkillCooldown, Fighter2SkillRate, Fighter2SkillEffect);
 
-    Fighter Fighter2(Fighter2Name, Fighter2Health, Fighter2Shield, Fighter2Weapon, Fighter2Skill);
+    Orc* Fighter2 = new Orc(IdFighter++, Fighter2Name, Fighter2Health, Fighter2Weapon);
 
     // Create Fighters list
-    std::vector<Fighter> FightersList;
+    std::vector<Fighter*> FightersList;
     FightersList.push_back(Fighter1);
     FightersList.push_back(Fighter2);
     

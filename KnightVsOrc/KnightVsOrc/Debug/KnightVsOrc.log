@@ -1,7 +1,5 @@
-﻿  Fighter.cpp
-  Game.cpp
-  InputOutput.cpp
+﻿  Game.cpp
+C:\Users\Lucas\Documents\TestEugenGroup\KnightVsOrc\KnightVsOrc\Game.cpp(83,27): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
   KnightVsOrc.cpp
-  Skill.cpp
   Génération de code en cours...
   KnightVsOrc.vcxproj -> C:\Users\Lucas\Documents\TestEugenGroup\KnightVsOrc\Debug\KnightVsOrc.exe

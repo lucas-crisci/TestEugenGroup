@@ -1,19 +1,21 @@
 #ifndef INPUTOUTPUT_H
 #define INPUTOUTPUT_H
 
-#include "InputOutput.h"
-
+#include <windows.h>
+#include <iostream>
 #include <string>
+#include <vector>
 
 class InputOutput
 {
 public:
-    InputOutput() {};
+    InputOutput();
 
     bool YesNoChoice();
     bool ABChoices(std::string AChoice, std::string BChoice);
     void PressEnter();
     void Refresh();
+    
 };
 
 #endif // INPUTOUTPUT_H

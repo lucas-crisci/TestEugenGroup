@@ -1,8 +1,9 @@
 #include "InputOutput.h"
 
-#include <windows.h>
-#include <iostream>
-#include <string>
+InputOutput::InputOutput()
+{
+
+}
 
 bool InputOutput::YesNoChoice()
 {
