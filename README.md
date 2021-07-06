@@ -1,4 +1,4 @@
-# TestEugenSystems
+# Test Eugen Systems
 
 ## Mode d'emploi
 Ce jeu a été réalisé en C++ sous Visual Studio 2019.
